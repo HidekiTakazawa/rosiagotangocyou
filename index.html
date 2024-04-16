@@ -18,6 +18,27 @@
 
     }
 
+    .header2 {
+
+      display: flex;
+    }
+
+    .linkurl {
+      margin-left: auto;
+    }
+
+    #flash {
+      display: inline-block;
+      width: 170px;
+      height: 40px;
+      cursor: pointer;
+      background-color: skyblue;
+      text-decoration: none;
+      text-align: center;
+      line-height: 50px;
+      border-radius: 6px
+    }
+
     .dataContent {
       padding-top: 180px;
       display: block;
@@ -73,7 +94,15 @@
 
 <body>
   <div class="header">
-    <h1>ロシア語単語帳</h1>
+    <div class="header2">
+
+      <h1>ロシア語単語帳</h1>
+      <div class="linkurl">
+        <a id="flash" href="https://hidekitakazawa.github.io/rosiagoTangocard/" target="_blank">単語カード</a>
+        <!-- <a id="ikeda" href="index6.Chinese" target="_blank">使用手引書</a> -->
+
+      </div>
+    </div>
     <div class="divFlex">
       <div class="sheetSelect">
 
@@ -102,7 +131,7 @@
 
         </select>
       </div>
-      
+
     </div>
   </div>
   <div id="main">
@@ -122,12 +151,12 @@
     const END_POINT = "https://script.google.com/macros/s/AKfycbxlRIEZErhwzNzoLS6mVKNlmHizrvIDv0D6Wt9-t-XZVdHRynJA1i4KL8lzCO5wBDYjCg/exec";
 
     let sheetIndex;  // 現在処理中のシートのindex
-    
+
     const sheetSelector = document.getElementById("sheet-select");
-    
+
     let container = document.getElementById('container');
 
-    
+
     iniCSSSet();
 
     var tdOLD;//2023/04/27追加
@@ -152,7 +181,7 @@
 
       }
     }
-    
+
 
     getFromGAS();//起動時のデータ取得
 
@@ -173,7 +202,7 @@
         sheetDatas = JSON.parse(result);
 
         renderSheetDatas(sheetDatas);
-        
+
         iniCSSSet();
       }).fail((error) => {  // 失敗した時の処理
         alert('Error:' + JSON.stringify(error));
@@ -209,23 +238,23 @@
         table.appendChild(tbody);
         for (let j = 0; j < sheetDatas[i].length; j++) {
           tr = document.createElement('tr');
-          
+
           for (let k = 0; k < sheetDatas[i][j].length - 1; k++) {
-            
+
             td = document.createElement('td');
             if (k === 0 || k === 2) {
-              
+
               td.textContent = sheetDatas[i][j][k];
               td.setAttribute('onclick', 'speakData(this)');
               td.setAttribute('class', 'clkBtn');
               td.style.backgroundColor = "#fffacd";
-              
+
             } else {
               td.textContent = sheetDatas[i][j][k];
-              
+
 
             }
-            
+
             tr.appendChild(td);
 
           }
@@ -238,10 +267,10 @@
 
       }
     }
-    
+
     //
     function speakData(param1, param2) {
-     
+
       // if (param1 instanceof HTMLTableCellElement) {
       const td = param1;
       //2023/04/27 追加　背景色
@@ -263,7 +292,7 @@
       // }
 
     }
-    
+
     // イニシャル　CSS セット　　最初のシートをイニシャル画面にする。
     function iniCSSSet() {
       sheetIndex = 0;
